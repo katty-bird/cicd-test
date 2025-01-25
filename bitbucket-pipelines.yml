@@ -1,0 +1,29 @@
+pipelines:
+  default:
+    - step:
+        name: checkout
+        script:
+          - git clone https://github.com/immich-app/immich.git
+
+    - step:
+        name: Build and Push Docker
+        services:
+          - docker
+        caches:
+          - docker
+        script:
+          # Login to Docker registry
+          - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY
+          
+          # Build Docker image
+          - docker build -t $DOCKER_REGISTRY/immich-server:$BITBUCKET_COMMIT -f server/Dockerfile .
+          - docker tag $DOCKER_REGISTRY/immich-server:$BITBUCKET_COMMIT $DOCKER_REGISTRY/immich-server:latest
+          
+          # Push Docker images
+          - docker push $DOCKER_REGISTRY/immich-server:$BITBUCKET_COMMIT
+          - docker push $DOCKER_REGISTRY/immich-server:latest
+
+definitions:
+  services:
+    docker:
+      memory: 2048
