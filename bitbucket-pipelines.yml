@@ -20,3 +20,7 @@ pipelines:
           - docker push $DOCKER_REGISTRY/immich-server:$BITBUCKET_COMMIT
           - docker push $DOCKER_REGISTRY/immich-server:latest
 
+definitions:
+  services:
+    docker:
+      memory: 8192 
