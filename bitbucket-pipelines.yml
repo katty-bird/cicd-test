@@ -1,11 +1,6 @@
 pipelines:
   default:
     - step:
-        name: checkout
-        script:
-          - git clone https://github.com/immich-app/immich.git
-
-    - step:
         name: Build and Push Docker
         services:
           - docker
@@ -25,7 +20,3 @@ pipelines:
           - docker push $DOCKER_REGISTRY/immich-server:$BITBUCKET_COMMIT
           - docker push $DOCKER_REGISTRY/immich-server:latest
 
-definitions:
-  services:
-    docker:
-      memory: 2048
