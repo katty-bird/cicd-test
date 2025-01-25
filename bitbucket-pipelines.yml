@@ -12,6 +12,7 @@ pipelines:
         caches:
           - docker
         script:
+          - git clone https://github.com/immich-app/immich.git
           - cd immich
           # Login to Docker registry
           - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY
