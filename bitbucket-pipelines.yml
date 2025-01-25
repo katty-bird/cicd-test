@@ -3,7 +3,7 @@ pipelines:
     - step:
         name: checkout
         script:
-          - git clone https://github.com/immich-app/immich.git .
+          - git clone https://github.com/immich-app/immich.git
 
     - step:
         name: Build and Push Docker
@@ -12,6 +12,7 @@ pipelines:
         caches:
           - docker
         script:
+          - cd immich
           # Login to Docker registry
           - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY
           
