@@ -14,11 +14,11 @@ pipelines:
           
           # Build Docker image
           - docker build -t $DOCKER_REGISTRY/immich-server:$BITBUCKET_COMMIT -f server/Dockerfile .
-          - docker tag $DOCKER_REGISTRY/immich-server:$BITBUCKET_COMMIT $DOCKER_REGISTRY/immich-server:latest
+          - docker tag $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT $DOCKER_REGISTRY/immich-server-bitbucket:latest
           
           # Push Docker images
-          - docker push $DOCKER_REGISTRY/immich-server:$BITBUCKET_COMMIT
-          - docker push $DOCKER_REGISTRY/immich-server:latest
+          - docker push $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT
+          - docker push $DOCKER_REGISTRY/immich-server-bitbucket:latest
 
 definitions:
   services:
