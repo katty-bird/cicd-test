@@ -13,7 +13,7 @@ pipelines:
           - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY
           
           # Build Docker image
-          - docker build -t $DOCKER_REGISTRY/immich-server:$BITBUCKET_COMMIT -f server/Dockerfile .
+          - docker build -t $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT -f server/Dockerfile .
           - docker tag $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT $DOCKER_REGISTRY/immich-server-bitbucket:latest
           
           # Push Docker images
