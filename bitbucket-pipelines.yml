@@ -2,24 +2,26 @@ pipelines:
   default:
     - step:
         name: Build and Push Docker
+        size: 4x  # 16 GB RAM, 8 CPU (dedicated) only for paid plan
         services:
           - docker
-        caches:
-          - docker
+
         script:
           - git clone https://github.com/immich-app/immich.git
           - cd immich
+
           # Login to Docker registry
           - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY
           
           # Build Docker image
-          - docker build -t $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT -f server/Dockerfile .
+          - docker build --cpus=4 -t $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT -f server/Dockerfile .
           - docker tag $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT $DOCKER_REGISTRY/immich-server-bitbucket:latest
           
           # Push Docker images
           - docker push $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT
           - docker push $DOCKER_REGISTRY/immich-server-bitbucket:latest
 
+# Set memory limit for DiD to prevent issues OOM during build
 definitions:
   services:
     docker:
