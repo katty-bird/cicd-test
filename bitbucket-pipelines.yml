@@ -11,7 +11,7 @@ pipelines:
           - cd immich
 
           # Login to Docker registry
-          - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY
+          - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
           
           # Build Docker image
           - docker build -t $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT -f server/Dockerfile .
