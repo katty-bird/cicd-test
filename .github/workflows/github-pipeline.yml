@@ -7,6 +7,9 @@ on:
   pull_request:
     branches:
       - main
+  schedule:
+    # run at 04:20, 04:35, 04:50 (UTC) every day
+    - cron: '20-50/15 4 * * *'
 
 jobs:
   build-and-push:
