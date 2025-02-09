@@ -2,7 +2,7 @@ pipelines:
   default:
     - step:
         name: Build and Push Docker
-        size: 4x  # 16 GB RAM, 8 CPU (dedicated) only for paid plan
+        size: 2x  # 8 GB RAM, 4 CPU (shared)
         services:
           - docker
 
@@ -14,7 +14,7 @@ pipelines:
           - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY
           
           # Build Docker image
-          - docker build --cpus=4 -t $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT -f server/Dockerfile .
+          - docker build -t $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT -f server/Dockerfile .
           - docker tag $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT $DOCKER_REGISTRY/immich-server-bitbucket:latest
           
           # Push Docker images
