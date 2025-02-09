@@ -8,8 +8,8 @@ on:
     branches:
       - main
   schedule:
-    # run at 04:20, 04:35, 04:50 (UTC) every day
-    - cron: '20-50/15 4 * * *'
+    # run at 04:25, 04:35, 04:45 (UTC) every day
+    - cron: '25-45/10 3 * * *'
 
 jobs:
   build-and-push:
