@@ -2,7 +2,7 @@ pipelines:
   default:
     - step:
         name: Build and Push Docker
-        size: 2x  # 8 GB RAM, 4 CPU (shared)
+        size: 4x  # 8 GB RAM, 4 CPU (shared)
         services:
           - docker
 
