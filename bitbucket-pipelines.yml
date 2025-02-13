@@ -8,19 +8,25 @@ pipelines:
           - docker
 
         script:
-          - "export TIMEFORMAT='%C: %R seconds'"
-          - git clone https://github.com/immich-app/immich.git
+          - |
+            time_cmd() {
+              start=$(date +%s)
+              "$@"
+              end=$(date +%s)
+              echo "$* took $((end-start)) seconds"
+            }
+          - time_cmd git clone https://github.com/immich-app/immich.git
           - cd immich
 
           # Build Docker image
-          - time docker build -t $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT -f server/Dockerfile .
-          - time docker tag $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT $DOCKER_REGISTRY/immich-server-bitbucket:latest
+          - time_cmd docker build -t $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT -f server/Dockerfile .
+          - time_cmd docker tag $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT $DOCKER_REGISTRY/immich-server-bitbucket:latest
           
           # Login to Docker registry
-          - time sh -c 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
+          - time_cmd sh -c 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
 
           # Push Docker images
-          - time sh -c 'docker push $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT && docker push $DOCKER_REGISTRY/immich-server-bitbucket:latest'
+          - time_cmd sh -c 'docker push $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT && docker push $DOCKER_REGISTRY/immich-server-bitbucket:latest'
 
 # Set memory limit for DiD to prevent issues OOM during build
 definitions:
