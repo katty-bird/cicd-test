@@ -8,7 +8,7 @@ pipelines:
           - docker
 
         script:
-          - export TIMEFORMAT='%C: %R seconds'
+          - "export TIMEFORMAT='%C: %R seconds'"
           - git clone https://github.com/immich-app/immich.git
           - cd immich
 
