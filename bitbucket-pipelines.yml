@@ -2,7 +2,7 @@ pipelines:
   default:
     - step:
         name: Build and Push Docker
-        size: 4x  # 16 GB RAM, 8 CPU (dedicated) only for paid plan
+        size: 4x  # 16 GB RAM, 8 CPU (dedicated)
         # size: 2x  # 8 GB RAM, 4 CPU (shared)
         services:
           - docker
@@ -11,16 +11,15 @@ pipelines:
           - git clone https://github.com/immich-app/immich.git
           - cd immich
 
-          # Login to Docker registry
-          - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
-          
           # Build Docker image
-          - docker build -t $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT -f server/Dockerfile .
-          - docker tag $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT $DOCKER_REGISTRY/immich-server-bitbucket:latest
+          - time docker build -t $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT -f server/Dockerfile .
+          - time docker tag $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT $DOCKER_REGISTRY/immich-server-bitbucket:latest
           
+          # Login to Docker registry
+          - time sh -c 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
+
           # Push Docker images
-          - docker push $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT
-          - docker push $DOCKER_REGISTRY/immich-server-bitbucket:latest
+          - time sh -c 'docker push $DOCKER_REGISTRY/immich-server-bitbucket:$BITBUCKET_COMMIT && docker push $DOCKER_REGISTRY/immich-server-bitbucket:latest'
 
 # Set memory limit for DiD to prevent issues OOM during build
 definitions:
