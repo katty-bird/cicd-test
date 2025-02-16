@@ -8,10 +8,12 @@ on:
     branches:
       - main
   schedule:
-    # he schedule runs every 30 minutes
-    # from 17:30 on February 16 to 03:00 on February 17 in Berlin time
-      - cron: '30/30 16-23 16 2 *'
-      - cron: '0/30 0-2 17 2 *'
+    # 1) Every 30 minutes from 18:00 to 23:30 UTC on February 16
+    - cron: '0,30 18-23 16 2 *'
+    # 2) Every 30 minutes from 00:00 to 00:30 UTC on February 17
+    - cron: '0,30 0 17 2 *'
+    # 3) A single run at 01:00 UTC on February 17
+    - cron: '0 1 17 2 *'
 
 jobs:
   build-and-push:
