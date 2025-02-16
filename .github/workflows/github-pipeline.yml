@@ -9,7 +9,7 @@ on:
       - main
   schedule:
     # run every 10 minutes starting at minute 0, every hour between 05am and 21pm, on the 16th day, in February
-      - cron: '0/10 4-20 16 2 *'
+      - cron: '0/15 5-5 16,17 2 *'
 
 jobs:
   build-and-push:
