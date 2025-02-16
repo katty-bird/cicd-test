@@ -2,8 +2,8 @@ pipelines:
   default:
     - step:
         name: Build and Push Docker
+        runs-on: ubuntu-latest
         size: 4x  # 16 GB RAM, 8 CPU (dedicated)
-        # size: 2x  # 8 GB RAM, 4 CPU (shared)
         services:
           - docker
 
