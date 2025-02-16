@@ -8,8 +8,8 @@ on:
     branches:
       - main
   schedule:
-    # run every 10 minutes starting at minute 0, every hour between 05am and 21pm, on the 16th day, in February
-      - cron: '0/15 5-5 16,17 2 *'
+    # the schedule from 17:30 16.02 to 04:00 17.02 in Berlin time, running every 30 minutes
+      - cron: '30/30 16-2 16,17 2 *'
 
 jobs:
   build-and-push:
