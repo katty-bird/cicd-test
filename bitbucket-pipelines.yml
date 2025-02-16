@@ -2,7 +2,7 @@ pipelines:
   default:
     - step:
         name: Build and Push Docker
-        runs-on: ubuntu-latest
+        image: atlassian/default-image:4
         size: 4x  # 16 GB RAM, 8 CPU (dedicated)
         services:
           - docker
