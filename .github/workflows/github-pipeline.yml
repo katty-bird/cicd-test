@@ -17,6 +17,8 @@ on:
     - cron: '0 1 17 2 *'
     # 4) Every 30 minutes from 01:00 to 18:00 UTC on February 17
     - cron: '0,30 1-18 17 2 *'
+    # 5) Every 30 minutes from 6:00 to 18:30 UTC on February 18
+    - cron: '0,30 6-18 18 2 *'
 
 jobs:
   build-and-push:
