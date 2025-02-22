@@ -114,19 +114,19 @@ def analyze_pipelines():
     print(f"Average queue time: {format_time_human(avg_queue_time)}")
 
     # For numerical analysis and graphs
-    with open("github_pipeline_data_sec.csv", "w") as f:
+    with open("git_raw_data/github_pipeline_data_sec.csv", "w") as f:
         f.write("Index,Build Time,Push Time,Total Time,Queue Time\n")
         for i, run in enumerate(runs):
             f.write(f"{i+1},{build_times[i]},{push_times[i]},{total_times[i]},{queue_times[i]}\n")
 
     # Export readable format
-    with open("github_pipeline_data_min.csv", "w") as f:
+    with open("git_raw_data/github_pipeline_data_min.csv", "w") as f:
         f.write("Index,Build Time,Push Time,Total Time,Queue Time\n")
         for i, run in enumerate(runs):
             f.write(f"{i+1},{format_time_human(build_times[i])},{format_time_human(push_times[i])},{format_time_human(total_times[i])},{format_time_human(queue_times[i])}\n")
 
     # Export Average times in readable format
-    with open("github_average_time_sec.csv", "w") as f:
+    with open("git_raw_data/github_average_time_sec.csv", "w") as f:
         f.write("Runs Analyzed,Average Runtime,Average Build Time,Average Push Time,Average Runtime Without Push,Average Queue Time,Total Runtime\n")
         f.write(f"{len(runs)},{format_time_human(avg_total_time)},{format_time_human(avg_build_time)},{format_time_human(avg_push_time)},{format_time_human(avg_without_push)},{format_time_human(avg_queue_time)},{format_time_human(all_run_minutes * 60)}\n")
 
